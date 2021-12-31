@@ -7,7 +7,7 @@ SET MYTHROTTLE TO 0.
 SET MYSTEERING TO HEADING(90, 90).
 
 // variables to change from rocket to rocket
-set heightOffset to 20.51610.
+set heightOffset to 21.51610.
 
 // more or less environmental variables
 lock mass to ship:mass.
@@ -82,8 +82,13 @@ when not getretrograde and bellyflip then {
 when aerobrake and ship:altitude < ship:body:atm:height then {
     if not atmOn = true {
         from {local i is 1.} until i = 4 step {set i to i+1.} do {
-            ship:partstagged("EngAtm"+i)[0]:activate().
-            print("activating engine"+i) at (0, 18).
+            if ship:partstagged("EngAtm"+i):length > 0 {
+                ship:partstagged("EngAtm"+i)[0]:activate().
+                print "activating engine"+i at (0, 18).
+            }
+            else {
+                print "could not activate engine"+i+" (not found)" at (0, 18).
+            }
         }
         set atmOn to true.
         for eng in ship:partstagged("EngVac") {
@@ -97,8 +102,8 @@ when aerobrake and ship:altitude < ship:body:atm:height then {
     }
     //wait 0.3.
     if TWR > 200 {
-        ship:partstagged("EngAtm3")[0]:shutdown().
-        print "using (one) Atm engines." at (0, 0).
+        ship:partstagged("EngAtm2")[0]:shutdown().
+        print "using (one) Atm engine." at (0, 0).
     }
     
     //wait 5.

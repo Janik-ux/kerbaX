@@ -18,8 +18,8 @@ lock mass to ship:mass.
 lock vert to ship:verticalspeed.
 lock hori to ship:groundspeed.
 lock aspeed to ship:airspeed.
-// lock g to ship:sensors:grav:mag.
-lock g to constant:g * body:mass / body:radius^2. 
+lock g to ship:sensors:grav:mag.
+// lock g to constant:g * body:mass / body:radius^2. 
 lock gheight to alt:radar - heightOffset. // height over ground
 lock maxaccel to (ship:availablethrust / ship:mass) - g.
 lock burnDist to vert^2 / (2 * maxaccel).		// The distance the burn will require
@@ -49,26 +49,11 @@ function setang {
 }
 
 // if we want to land safely, we have to kill off hori speed
-set counter to 0.
 when getretrograde and puttedimp then {
     if gheight > 60 or MYTHROTTLE < 0.1 { // and MYTHROTTLE < 0.1
         print "trying to adjust the impact" at (0, 1).
         set lngangle to (-30 / -0.05*addons:tr:impactpos:lng + 44737.2). // (-30 / -0.05*addons:tr:impactpos:lng + 44737.2)
         set latangle to ((100 / -0.0878) * addons:tr:impactpos:lat - 110.47835990888383). //  ((30 / -0.0878) * addons:tr:impactpos:lat - 33.21184510250569) // 40 : 44.19134396355353 // 60 : 66.2870159453303 // 100 : 110.47835990888383
-        if (latangle -10 < lastLat) or (latangle +10 > lastLat) {
-            set latangle to latangle/2.
-            print "trying for lower frequency" at (0, 15).
-        } else {
-            print "                          " at (0, 15).
-        }
-        if counter > 5 {
-            set lastLat to latangle.
-            set counter to 0.
-            print "resetting counter" at (0, 14).
-        } else {
-            set counter to counter + 1.
-            print "                 " at (0, 14).
-        }
 
         print "lng         : " + lngangle at (0, 9).
         print "lat         : " + latangle at (0, 10).

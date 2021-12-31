@@ -61,14 +61,14 @@ on ag10 {
 
 //countdown(3).
 PRINT "Liftoff!".
-STAGE.
+// STAGE.
 
 // erstmal bisschen Höhe gewinnen
 set MYTHROTTLE to 1.
 WAIT UNTIL gheight > 20.
 set flightmod to 0.
 
-// main loop vlt. mit var, die geändert werden kann.
+// main loop
 until false {
     set MYTHROTTLE to ((mass+rovemass) * (g - VERT) / ship:availablethrust)+flightmod.
 
