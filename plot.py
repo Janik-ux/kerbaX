@@ -1,19 +1,42 @@
+"""
+Plots flight data of my KSP-rockets.
+(c) 2023 Janik-ux
+Licensed under MIT
+"""
 import matplotlib.pyplot as plt
+import pandas as pd
 
-file = "i_file"
-x_list = list()
-y_list = list()
-with open(file, "r") as file:
-    i = 0
-    for line in file:
-        if i % 60 == 0:
-            print(i)
-            print("hello")
-            x, y = line.split(",") # could cause errors if there are mor than one comma
-            x_list.append(x)
-            y_list.append(y)
-        i += 1
+# file = "flightlog_f9_west.csv"
+file0 = "c_d-vel-height.csv"
+file1 = "entryflightlog_comp_1.csv"
+# headers = ["time", "gheight", "fdist[0]", "bdist[0]", "P", "D"]
 
-print(len(x_list))
-plt.plot(x_list, y_list)
+# plt.rcParams["figure.figsize"] = [7.50, 3.50]
+# plt.rcParams["figure.autolayout"] = True
+
+
+df0 = pd.read_csv(file0)
+# df1 = pd.read_csv(file1)
+x = 29805722
+# print(df.loc[(df["time"] >= x-0.1) & (df["time"] <= x+0.1)])
+
+# plot:
+# df[["time", "c_d", "velo", "gheight"]].set_index("gheight").plot()
+# df[["time", "c_d", "velo", "gheight"]].set_index("gheight").plot()
+fig, axs = plt.subplots(2, 1)
+
+axs[0].plot(df0["c_d"], df0["gheight"], marker="o") # , df0["gheight"], df0["velo"])
+# axs[1].plot(df1["velo"], df1["c_d"]) # , df1["gheight"], df1["velo"])
+
+
+# # df[["time", "D", "P", "fdist[0] (=x_fallend)"]].set_index("time").plot()
+# plt.plot(df["time"], df["P"], "o", label="P")
+# plt.plot(df["time"], df["D"], "o", label="D")
+# plt.plot(df["time"], df["fdistx"], "o", label="fdistx")
+# plt.plot(df["time"], df["fdisterr"], "o", label="fdist error")
+# plt.plot(df["time"], df["bdisterr"], "o", label="bdist error")
+# plt.plot(df["time"], df["bdisty"], "o", label="bdisty")
+# plt.plot(df["time"], df["bdistx"], "o", label="bdistx")
+# plt.plot(df["time"], df["gheight"], "o", label="gheight")
+plt.legend()
 plt.show()

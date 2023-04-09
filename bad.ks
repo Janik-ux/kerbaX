@@ -5,6 +5,7 @@
 // the program assumes the booster has an impact and is not on orbital velocity
 
 // TODO roll in th right direction to support pitch
+// TODO Problem with hoverslam -> takes only vert speed into account
 @lazyGlobal off.
 parameter bb.
 
@@ -17,7 +18,7 @@ parameter bb.
 // Of course I still love you: latlng(0, -60)
 // JRTI: latlng(0, -44)
 
-global landspot to latlng(0, -44).
+global landspot to latlng(-0.1572075468722493, -74.5576849138598).
 global heightOffset to 30.27449.
 global landingengines to 9. // possible values are 9,3,1. If anything alse, the program assumes 1
 
